@@ -59,7 +59,8 @@ Widget build(BuildContext context) {
   );
 }
 ```
-As you can see the code is a little easier to read now and the result will be just like we want it to be:
+As you can see the code is a little easier to read now and the result will be just how  we want it to be:
+
 ![yeah cats are great](https://i.imgur.com/sTlZegq.gif)
 
 ## Usage
