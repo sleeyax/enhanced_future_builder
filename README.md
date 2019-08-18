@@ -32,6 +32,7 @@ Widget build(BuildContext context) {
 }
 ```
 Which results in the following app:
+
 ![I love cats](https://i.imgur.com/AXjPhTH.gif)
 
 As you can see there's a problem. Whenever the button is clicked, a new cat is shown to the user. This is not what we want and can be solved by using `EnhancedFutureBuilder`.
