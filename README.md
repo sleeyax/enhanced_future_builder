@@ -1,5 +1,5 @@
 # enhanced_future_builder
-Small FutureBuilder wrapper to improve readabiltity. It can also be used as an easy solution to the common 'my FutureBuilder keeps refiring' problem.
+Small FutureBuilder wrapper to improve readabiltity. It can also be used as an easy solution to the common 'my FutureBuilder keeps refiring' problem (more info about that [here](https://medium.com/saugo360/flutter-my-futurebuilder-keeps-firing-6e774830bc2)).
 
 ## Stop FutureBuilder from refiring
 Let's say you want to build an app that displays a random cat from the internet at launch and then increases a counter whenever a button is clicked. You came up with the following code:
