@@ -75,8 +75,6 @@ class _EnhancedFutureBuilderState extends State<EnhancedFutureBuilder> {
         if (this.widget.whenNotDone != null && snapshot.connectionState != ConnectionState.done) {
           return this.widget.whenNotDone;
         }
-        
-        throw Exception('Unexpected error');
       },
     );
   }
