@@ -22,6 +22,10 @@ class EnhancedFutureBuilder<T> extends StatefulWidget {
   /// Function to call when the asynchronous computation is done.
   final Widget Function(T snapshotData) whenDone;
 
+  /// Function to call when the asynchronous computation is done with error.
+  /// If no function is passed, whenNotDone() will be used instead
+  final Widget Function(Object error) whenError;
+
   /// The data that will be used until a non-null [future] has completed.
   ///
   /// See [FutureBuilder] for more info
@@ -32,14 +36,16 @@ class EnhancedFutureBuilder<T> extends StatefulWidget {
       @required this.future,
       @required this.rememberFutureResult,
       @required this.whenDone,
+      @required this.whenNotDone,
+      this.whenError,
       this.whenActive,
-      this.whenNotDone,
       this.whenNone,
       this.whenWaiting,
       this.initialData})
       : assert(future != null),
         assert(rememberFutureResult != null),
         assert(whenDone != null),
+        assert(whenNotDone != null),
         super(key: key);
 
   @override
@@ -78,13 +84,17 @@ class _EnhancedFutureBuilderState<T> extends State<EnhancedFutureBuilder<T>> {
         }
 
         if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.hasError) {
+            if (this.widget.whenError != null) {
+              return this.widget.whenError(snapshot.error);
+            } else {
+              return this.widget.whenNotDone;
+            }
+          }
           return this.widget.whenDone(snapshot.data);
         }
 
-        if (this.widget.whenNotDone != null &&
-            snapshot.connectionState != ConnectionState.done) {
-          return this.widget.whenNotDone;
-        }
+        return this.widget.whenNotDone;
       },
     );
   }

@@ -61,6 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // this is where the magic happens
         rememberFutureResult: true,
         whenDone: (Cat cat) => _showCatWidget(cat),
+        whenError: (Object error) => Text(error.toString()),
         whenNotDone: Center(child: Text('Loading...'))
       ),
       floatingActionButton: FloatingActionButton(
