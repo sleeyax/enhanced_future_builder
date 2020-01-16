@@ -60,7 +60,8 @@ class _MyHomePageState extends State<MyHomePage> {
         future: widget._api.getRandomCat(),
         // this is where the magic happens
         rememberFutureResult: true,
-        whenDone: (dynamic cat) => _showCatWidget(cat),
+        whenDone: (Cat cat) => _showCatWidget(cat),
+        whenError: (Object error) => Text(error.toString()),
         whenNotDone: Center(child: Text('Loading...'))
       ),
       floatingActionButton: FloatingActionButton(
