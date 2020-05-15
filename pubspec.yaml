@@ -1,6 +1,6 @@
 name: enhanced_future_builder
 description: Wrapper that improves readability and solves the common refiring FutureBuilder problem
-version: 1.0.2
+version: 1.0.3
 homepage: https://github.com/sleeyax/enhanced_future_builder
 author: Sleeyax <yourd3veloper@gmail.com>
 
