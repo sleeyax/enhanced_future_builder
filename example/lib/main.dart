@@ -19,9 +19,9 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key? key, this.title}) : super(key: key);
 
-  final String title;
+  final String? title;
   final CatApi _api = CatApi();
 
   @override
@@ -37,14 +37,14 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  Widget _showCatWidget(Cat cat) {
+  Widget _showCatWidget(Cat? cat) {
     return Container(
       padding: EdgeInsets.all(10),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Flexible(child: Image.network(cat.url)),
-          Text('Image width: ${cat.width} - height: ${cat.height}')
+          Flexible(child: Image.network(cat?.url ?? '')),
+          Text('Image width: ${cat?.width} - height: ${cat?.height}')
         ],
       ),
     );
@@ -57,13 +57,12 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text('Clicked $_counter times')
       ),
       body: EnhancedFutureBuilder(
-        future: widget._api.getRandomCat(),
-        // this is where the magic happens
-        rememberFutureResult: true,
-        whenDone: (Cat cat) => _showCatWidget(cat),
-        whenError: (Object error) => Text(error.toString()),
-        whenNotDone: Center(child: Text('Loading...'))
-      ),
+          future: widget._api.getRandomCat(),
+          // this is where the magic happens
+          rememberFutureResult: true,
+          whenDone: (Cat? cat) => _showCatWidget(cat),
+          whenError: (Object? error) => Text(error.toString()),
+          whenNotDone: Center(child: Text('Loading...'))),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
