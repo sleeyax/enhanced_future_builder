@@ -86,7 +86,7 @@ class _EnhancedFutureBuilderState<T> extends State<EnhancedFutureBuilder<T>> {
               return widget.whenNotDone;
             }
           }
-          return widget.whenDone(snapshot.data!);
+          return widget.whenDone(snapshot.data as T);
         }
 
         return widget.whenNotDone;
