@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 
 class EnhancedFutureBuilder<T> extends StatefulWidget {
   /// Future to resolve.
-  final Future<T?> future;
+  final Future<T> future;
 
   /// Whether or not the future result should be stored.
   final bool rememberFutureResult;
@@ -48,8 +48,8 @@ class EnhancedFutureBuilder<T> extends StatefulWidget {
   _EnhancedFutureBuilderState createState() => _EnhancedFutureBuilderState<T>();
 }
 
-class _EnhancedFutureBuilderState<T> extends State<EnhancedFutureBuilder<T?>> {
-  late Future<T?> _cachedFuture = widget.future;
+class _EnhancedFutureBuilderState<T> extends State<EnhancedFutureBuilder<T>> {
+  late Future<T> _cachedFuture = widget.future;
 
   @override
   void initState() {
@@ -59,7 +59,7 @@ class _EnhancedFutureBuilderState<T> extends State<EnhancedFutureBuilder<T?>> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<T?>(
+    return FutureBuilder<T>(
       future: widget.rememberFutureResult ? _cachedFuture : widget.future,
       initialData: widget.initialData,
       builder: (context, snapshot) {
@@ -86,7 +86,7 @@ class _EnhancedFutureBuilderState<T> extends State<EnhancedFutureBuilder<T?>> {
               return widget.whenNotDone;
             }
           }
-          return widget.whenDone(snapshot.data);
+          return widget.whenDone(snapshot.data!);
         }
 
         return widget.whenNotDone;
