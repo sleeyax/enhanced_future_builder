@@ -59,17 +59,19 @@ class _EnhancedFutureBuilderState<T> extends State<EnhancedFutureBuilder<T>> {
       future: widget.rememberFutureResult ? _cachedFuture : widget.future,
       initialData: widget.initialData,
       builder: (context, snapshot) {
-        if (widget.whenNone != null &&
-            snapshot.connectionState == ConnectionState.none) {
+        if (widget.whenNone != null && snapshot.isNone) {
           return widget.whenNone!;
         }
 
-        if (widget.whenWaiting != null &&
-            snapshot.connectionState == ConnectionState.waiting) {
+        if (widget.whenWaiting != null && snapshot.isWaiting) {
           return widget.whenWaiting!;
         }
 
-        if (snapshot.connectionState == ConnectionState.done) {
+        if (widget.initialData != null && snapshot.isWaiting && snapshot.data != null) {
+          return widget.whenDone(snapshot.data as T);
+        }
+
+        if (snapshot.isDone) {
           if (snapshot.hasError) {
             if (widget.whenError != null) {
               return widget.whenError!(snapshot.error);
@@ -84,4 +86,12 @@ class _EnhancedFutureBuilderState<T> extends State<EnhancedFutureBuilder<T>> {
       },
     );
   }
+}
+
+extension on AsyncSnapshot {
+  bool get isDone => connectionState == ConnectionState.done;
+
+  bool get isWaiting => connectionState == ConnectionState.waiting;
+
+  bool get isNone => connectionState == ConnectionState.none;
 }
