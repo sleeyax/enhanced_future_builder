@@ -45,7 +45,7 @@ class EnhancedFutureBuilder<T> extends StatefulWidget {
 }
 
 class _EnhancedFutureBuilderState<T> extends State<EnhancedFutureBuilder<T>> {
-  late Future<T>? _cachedFuture = widget.future;
+  Future<T>? _cachedFuture;
 
   @override
   void initState() {
