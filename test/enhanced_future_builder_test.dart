@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('EnhancedFutureBuilder when done and not done', (WidgetTester tester) async {
+  testWidgets('when done and not done', (tester) async {
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
@@ -26,7 +26,7 @@ void main() {
     expect(find.text('42'), findsOneWidget);
   });
 
-  testWidgets('EnhancedFutureBuilder initial data', (WidgetTester tester) async {
+  testWidgets('initial data', (tester) async {
     final completer = Completer<int>();
 
     await tester.pumpWidget(
@@ -52,7 +52,7 @@ void main() {
     expect(find.text('43'), findsOneWidget);
   });
 
-  testWidgets('EnhancedFutureBuilder when error', (WidgetTester tester) async {
+  testWidgets('when error', (tester) async {
     final completer = Completer<int>();
 
     await tester.pumpWidget(
@@ -78,7 +78,7 @@ void main() {
     expect(find.text('Error: Error'), findsOneWidget);
   });
 
-  testWidgets('EnhancedFutureBuilder when waiting', (WidgetTester tester) async {
+  testWidgets('when waiting', (tester) async {
     final completer = Completer<int>();
 
     await tester.pumpWidget(
@@ -104,7 +104,7 @@ void main() {
     expect(find.text('43'), findsOneWidget);
   });
 
-  testWidgets('EnhancedFutureBuilder when none', (WidgetTester tester) async {
+  testWidgets('when none', (tester) async {
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
@@ -120,5 +120,90 @@ void main() {
     );
 
     expect(find.text('None'), findsOneWidget);
+  });
+
+  testWidgets('when error and no handler', (tester) async {
+    final completer = Completer<int>();
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: EnhancedFutureBuilder(
+            rememberFutureResult: true,
+            future: completer.future,
+            whenDone: (data) => Text('$data'),
+            whenNotDone: Text('Not done'),
+          ),
+        ),
+      ),
+    );
+
+    expect(find.text('Not done'), findsOneWidget);
+
+    completer.completeError('Error');
+
+    await tester.pump();
+
+    expect(find.text('Not done'), findsOneWidget);
+  });
+
+  testWidgets('remember future result', (tester) async {
+    var future = Future.value(42);
+    late void Function(void Function()) setStateFn;
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: StatefulBuilder(builder: (context, setState) {
+          setStateFn = setState;
+          return Scaffold(
+            body: EnhancedFutureBuilder(
+              rememberFutureResult: true,
+              future: future,
+              whenDone: (data) => Text('$data'),
+              whenNotDone: Text('Not done'),
+            ),
+          );
+        }),
+      ),
+    );
+
+    await tester.pump();
+    expect(find.text('42'), findsOneWidget);
+
+    setStateFn(() {
+      future = Future.value(43);
+    });
+    await tester.pumpAndSettle();
+    expect(find.text('42'), findsOneWidget);
+  });
+
+  testWidgets('do not remember future result', (tester) async {
+    var future = Future.value(42);
+    late void Function(void Function()) setStateFn;
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: StatefulBuilder(builder: (context, setState) {
+          setStateFn = setState;
+          return Scaffold(
+            body: EnhancedFutureBuilder(
+              rememberFutureResult: false,
+              future: future,
+              whenDone: (data) => Text('$data'),
+              whenNotDone: Text('Not done'),
+            ),
+          );
+        }),
+      ),
+    );
+
+    await tester.pump();
+    expect(find.text('42'), findsOneWidget);
+
+    setStateFn(() {
+      future = Future.value(43);
+    });
+    await tester.pumpAndSettle();
+    expect(find.text('43'), findsOneWidget);
   });
 }
