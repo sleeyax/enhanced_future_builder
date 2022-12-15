@@ -7,9 +7,6 @@ class EnhancedFutureBuilder<T> extends StatefulWidget {
   /// Whether or not the future result should be stored.
   final bool rememberFutureResult;
 
-  /// Widget to display when connected to an asynchronous computation.
-  final Widget? whenActive;
-
   /// Widget to display when connected to an asynchronous computation and awaiting interaction.
   final Widget? whenWaiting;
 
@@ -38,7 +35,6 @@ class EnhancedFutureBuilder<T> extends StatefulWidget {
     required this.whenDone,
     required this.whenNotDone,
     this.whenError,
-    this.whenActive,
     this.whenNone,
     this.whenWaiting,
     this.initialData,
@@ -63,11 +59,6 @@ class _EnhancedFutureBuilderState<T> extends State<EnhancedFutureBuilder<T>> {
       future: widget.rememberFutureResult ? _cachedFuture : widget.future,
       initialData: widget.initialData,
       builder: (context, snapshot) {
-        if (widget.whenActive != null &&
-            snapshot.connectionState == ConnectionState.active) {
-          return widget.whenActive!;
-        }
-
         if (widget.whenNone != null &&
             snapshot.connectionState == ConnectionState.none) {
           return widget.whenNone!;
