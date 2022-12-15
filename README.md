@@ -1,10 +1,10 @@
 # enhanced_future_builder
 Small FutureBuilder wrapper to improve readabiltity. It can also be used as an easy solution to the common 'my FutureBuilder keeps refiring' problem (more info about that [here](https://medium.com/saugo360/flutter-my-futurebuilder-keeps-firing-6e774830bc2)).
 
-[![Actions Status](https://github.com/icarohs7/enhanced_future_builder/workflows/build/badge.svg)](
-https://github.com/icarohs7/enhanced_future_builder/actions)
-[![codecov](https://codecov.io/gh/icarohs7/enhanced_future_builder/branch/master/graph/badge.svg)](
-https://codecov.io/gh/icarohs7/enhanced_future_builder)
+[![Actions Status](https://github.com/sleeyax/enhanced_future_builder/workflows/build/badge.svg)](
+https://github.com/sleeyax/enhanced_future_builder/actions)
+[![codecov](https://codecov.io/gh/sleeyax/enhanced_future_builder/branch/master/graph/badge.svg)](
+https://codecov.io/gh/sleeyax/enhanced_future_builder)
 
 ## Stop FutureBuilder from refiring
 Let's say you want to build an app that displays a random cat from the internet at launch and then increases a counter whenever a button is clicked. You came up with the following code:
