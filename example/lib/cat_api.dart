@@ -9,7 +9,7 @@ class CatApi {
   final String _url = 'https://api.thecatapi.com/v1';
 
   Future<Cat> getRandomCat() async {
-    Response resp = await _http.get('$_url/images/search');
+    Response resp = await _http.get(Uri.parse('$_url/images/search'));
     return Cat.fromJson(jsonDecode(resp.body)[0] as Map<String, dynamic>);
   }
 }
