@@ -8,7 +8,7 @@ https://codecov.io/gh/sleeyax/enhanced_future_builder)
 
 ## Stop FutureBuilder from refiring
 Let's say you want to build an app that displays a random cat from the internet at launch and then increases a counter whenever a button is clicked. You came up with the following code:
-```
+```dart
 @override
 Widget build(BuildContext context) {
   return Scaffold(
@@ -42,7 +42,7 @@ Which results in the following app:
 
 As you can see there's a problem. Whenever the button is clicked, a new cat is shown to the user. This is not what we want and can be solved by using `EnhancedFutureBuilder`.
 Import the package and change the code to:
-```
+```dart
 @override
 Widget build(BuildContext context) {
   return Scaffold(
@@ -72,7 +72,7 @@ As you can see the code is a little easier to read now and the result will be ju
 Ironically, `EnhancedFutureBuilder` doesn't require a builder anymore. 
 
 `FutureBuilder`:
-```
+```dart
 FutureBuilder(
   future: _futureToResolve(),
   builder: (context, snapshot) {
@@ -89,7 +89,7 @@ FutureBuilder(
 }
 ```
 `EnhancedFutureBuilder`:
-```
+```dart
 EnhancedFutureBuilder(
   future: _futureToResolve(),
   rememberFutureResult: false,
