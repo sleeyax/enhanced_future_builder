@@ -1,3 +1,5 @@
+**This library is no longer maintained. Use at your own discretion.**
+
 # enhanced_future_builder
 Small FutureBuilder wrapper to improve readabiltity. It can also be used as an easy solution to the common 'my FutureBuilder keeps refiring' problem (more info about that [here](https://medium.com/saugo360/flutter-my-futurebuilder-keeps-firing-6e774830bc2)).
 
